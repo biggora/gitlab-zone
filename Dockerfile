@@ -11,18 +11,19 @@ FROM ubuntu:14.04
 MAINTAINER Alexey Gordeyev <aleksej@gordejev.lv>
 
 # Update the repository sources list
-RUN apt-get update && \
-    apt-get dist-upgrade -y && \
+RUN apt-get update -q && \
+    apt-get dist-upgrade -y -q && \
     apt-get autoclean -y
 
 ################## BEGIN INSTALLATION ######################
 
-RUN apt-get install -y ca-certificates build-essential git \
-    imagemagick graphicsmagick ntp nano && \
+RUN apt-get install -y -q ca-certificates build-essential git \
+    curl wget sudo imagemagick graphicsmagick ntp nano && \
     update-ca-certificates -f && \
     curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash - && \
     sudo apt-get install -y nodejs && \
-    npm install -g npm nodeunit bower gulp jshint mocha istanbul should chai apidoc makedoc
+    npm install -g npm nodeunit bower gulp jshint mocha istanbul should \
+    chai apidoc makedoc supertest
 
 ENV LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 TERM=xterm
 RUN locale-gen $LC_ALL
@@ -31,5 +32,7 @@ RUN locale-gen $LC_ALL
 
 # Expose the default port
 EXPOSE 3000
+
+CMD ["/bin/bash"]
 
 WORKDIR /opt/
