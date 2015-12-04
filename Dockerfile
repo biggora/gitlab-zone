@@ -17,7 +17,7 @@ RUN apt-get update -q && \
 
 ################## BEGIN INSTALLATION ######################
 
-RUN apt-get install -y -q ca-certificates build-essential git \
+RUN apt-get install -y -q ca-certificates build-essential git python3 \
     curl wget imagemagick graphicsmagick ntp nano bash-completion sudo && \
     update-ca-certificates -f
 RUN curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
