@@ -18,11 +18,13 @@ RUN apt-get update -q && \
 ################## BEGIN INSTALLATION ######################
 
 RUN apt-get install -y -q ca-certificates build-essential git \
-    curl wget sudo imagemagick graphicsmagick ntp nano && \
-    update-ca-certificates -f && \
-    curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash - && \
-    sudo apt-get install -y nodejs && \
-    npm install -g npm nodeunit bower gulp jshint mocha istanbul should \
+    curl wget imagemagick graphicsmagick ntp nano bash-completion sudo && \
+    update-ca-certificates -f
+RUN curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+RUN apt-get update -q && \
+    apt-get install -y nodejs && \
+    apt-get autoclean -y
+RUN npm install -g --save-dev nodeunit bower gulp jshint mocha istanbul should \
     chai apidoc makedoc supertest
 
 ENV LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 TERM=xterm
