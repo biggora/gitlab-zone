@@ -24,7 +24,7 @@ RUN curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
 RUN apt-get update -q && \
     apt-get install -y nodejs && \
     apt-get autoclean -y
-RUN npm install -g --save-dev node-gyp nodeunit bower gulp jshint mocha istanbul should \
+RUN npm install -g --save-dev node-gyp nodeunit bower gulp jshint@2.8.0 mocha istanbul should \
     chai phantomjs browserify apidoc makedoc supertest coveralls benchmark grunt-cli
 
 ENV LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 TERM=xterm
