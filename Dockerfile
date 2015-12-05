@@ -18,7 +18,7 @@ RUN apt-get update -q && \
 ################## BEGIN INSTALLATION ######################
 
 RUN apt-get install -y -q ca-certificates build-essential git python python-software-properties \
-    curl wget imagemagick graphicsmagick ntp nano bash-completion sudo && \
+    curl wget imagemagick graphicsmagick ntp nano bash-completion sudo phantomjs && \
     update-ca-certificates -f
 RUN curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
 RUN apt-get update -q && \
