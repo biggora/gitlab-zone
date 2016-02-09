@@ -25,7 +25,8 @@ RUN apt-get update -q && \
     apt-get install -y nodejs && \
     apt-get autoclean -y
 RUN npm install -g --save-dev node-gyp nodeunit bower gulp jshint@2.8.0 mocha istanbul should \
-    chai phantomjs browserify apidoc makedoc supertest coveralls benchmark grunt-cli
+    chai phantomjs browserify karma karma-cli karma-jasmine karma-chrome-launcher apidoc \
+    makedoc supertest coveralls benchmark gulp grunt-cli
 
 ENV LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 TERM=xterm
 RUN locale-gen $LC_ALL
