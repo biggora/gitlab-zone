@@ -5,31 +5,21 @@
 ############################################################
 
 # Set the base image to Ubuntu
-FROM ubuntu:14.04
+FROM node:4-alpine
 
 # File Author / Maintainer
 MAINTAINER Alexey Gordeyev <aleksej@gordejev.lv>
 
 # Update the repository sources list
-RUN apt-get update -q && \
-    apt-get dist-upgrade -y -q && \
-    apt-get autoclean -y
+RUN apk update && apk upgrade && \
+    apk add --no-cache bash git curl wget python imagemagick && \
+    rm -rf /var/cache/apk/*
 
-################## BEGIN INSTALLATION ######################
+################## BEGIN NPM INSTALLATION ######################
 
-RUN apt-get install -y -q ca-certificates build-essential git python python-software-properties \
-    python-yaml curl wget imagemagick graphicsmagick ntp nano bash-completion sudo phantomjs && \
-    update-ca-certificates -f
-RUN curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
-RUN apt-get update -q && \
-    apt-get install -y nodejs && \
-    apt-get autoclean -y
-RUN npm install -g --save-dev node-gyp nodeunit bower gulp jshint@2.8.0 mocha istanbul should \
+RUN npm install -g node-gyp nodeunit bower gulp jshint@2.8.0 mocha istanbul should \
     chai phantomjs browserify karma karma-cli karma-jasmine karma-chrome-launcher apidoc \
     makedoc supertest coveralls benchmark gulp grunt-cli
-
-ENV LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 TERM=xterm
-RUN locale-gen $LC_ALL
 
 ##################### INSTALLATION END #####################
 
