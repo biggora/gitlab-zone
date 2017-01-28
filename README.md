@@ -1,7 +1,7 @@
 ## Introduction
 This is a Dockerfiles to build a container images for gitlab-runner. 
 The container includes nodejs 4.x.
-Based on Ubuntu 14.04
+Based on Alpine 3.4
 
 ## NPM Modules
 istalled as global
