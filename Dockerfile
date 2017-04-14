@@ -12,7 +12,7 @@ MAINTAINER Alexey Gordeyev <aleksej@gordejev.lv>
 
 # Update the repository sources list
 RUN apk update && apk upgrade && \
-    apk add --no-cache bash git curl wget python imagemagick && \
+    apk add --no-cache openssh bash git curl wget python imagemagick && \
     rm -rf /var/cache/apk/*
 
 ################## BEGIN NPM INSTALLATION ######################
@@ -24,7 +24,7 @@ RUN npm install -g node-gyp nodeunit bower gulp jshint@2.8.0 mocha istanbul shou
 ##################### INSTALLATION END #####################
 
 # Expose the default port
-EXPOSE 3000
+EXPOSE 3000 22
 
 CMD ["/bin/bash"]
 
