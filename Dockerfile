@@ -1,7 +1,7 @@
 ############################################################
 # Dockerfile to build container for Tests
-# Based on Ubuntu 14.04
-# include GIT NODEJS
+# Based on Alpine 3.4
+# include GIT NODEJS OPENSSH
 ############################################################
 
 # Set the base image to Ubuntu
