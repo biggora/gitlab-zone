@@ -12,7 +12,8 @@ MAINTAINER Alexey Gordeyev <aleksej@gordejev.lv>
 
 # Update the repository sources list
 RUN apk update && apk upgrade && \
-    apk add --no-cache openssh make g++ bash git curl wget python imagemagick && \
+    apk add --no-cache openssh make g++ build-base libsass \
+    bash git curl wget python imagemagick && \
     rm -rf /var/cache/apk/*
 
 ################## BEGIN NPM INSTALLATION ######################
