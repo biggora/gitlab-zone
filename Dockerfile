@@ -11,12 +11,23 @@ FROM node:4-alpine
 MAINTAINER Alexey Gordeyev <aleksej@gordejev.lv>
 
 ENV NODE_SASS_PLATFORM alpine
+ENV LIBSASS_VERSION=3.4.3 
+ENV SASSC_VERSION=3.4.3
 
 # Update the repository sources list
 RUN apk update && apk upgrade && \
     apk add --no-cache openssh make g++ build-base libstdc++ \
     bash git curl wget python imagemagick && \
     rm -rf /var/cache/apk/*
+
+RUN git clone https://github.com/sass/sassc && \
+    cd sassc && \
+    git clone https://github.com/sass/libsass && \
+    SASS_LIBSASS_PATH=/sassc/libsass make && \
+    mv bin/sassc /usr/bin/sass
+
+# cleanup
+RUN cd / && rm -rf /sassc
 
 ################## BEGIN NPM INSTALLATION ######################
 
