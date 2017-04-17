@@ -10,6 +10,8 @@ FROM node:4-alpine
 # File Author / Maintainer
 MAINTAINER Alexey Gordeyev <aleksej@gordejev.lv>
 
+ENV NODE_SASS_PLATFORM alpine
+
 # Update the repository sources list
 RUN apk update && apk upgrade && \
     apk add --no-cache openssh make g++ build-base libstdc++ \
