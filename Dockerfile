@@ -12,7 +12,7 @@ MAINTAINER Alexey Gordeyev <aleksej@gordejev.lv>
 
 # Update the repository sources list
 RUN apk update && apk upgrade && \
-    apk add --no-cache openssh make g++ build-base libsass \
+    apk add --no-cache openssh make g++ build-base libstdc++ \
     bash git curl wget python imagemagick && \
     rm -rf /var/cache/apk/*
 
