@@ -31,9 +31,7 @@ RUN cd / && rm -rf /sassc
 
 ################## BEGIN NPM INSTALLATION ######################
 
-RUN npm install -g node-gyp nodeunit bower gulp jshint@2.8.0 mocha istanbul should \
-    chai phantomjs browserify karma karma-cli karma-jasmine karma-chrome-launcher apidoc \
-    makedoc async supertest coveralls benchmark gulp grunt-cli node-sass
+RUN npm install -g node-gyp bower gulp grunt-cli node-sass
 
 ##################### INSTALLATION END #####################
 
