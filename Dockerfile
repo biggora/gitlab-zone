@@ -17,7 +17,7 @@ ENV SASSC_VERSION=3.4.3
 # Update the repository sources list
 RUN apk update && apk upgrade && \
     apk add --no-cache openssh make g++ build-base libstdc++ \
-    bash git curl wget zip python imagemagick && \
+    bash git yarn curl wget zip python imagemagick && \
     rm -rf /var/cache/apk/*
 
 RUN git clone https://github.com/sass/sassc && \
