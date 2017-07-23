@@ -29,6 +29,10 @@ RUN git clone https://github.com/sass/sassc && \
 # cleanup
 RUN cd / && rm -rf /sassc
 
+# yarn
+RUN cp /usr/local/bin/yarn /bin/yarn \
+    chmod 0777 /bin/yarn
+
 ################## BEGIN NPM INSTALLATION ######################
 
 RUN npm install -g node-gyp bower gulp grunt-cli node-sass
