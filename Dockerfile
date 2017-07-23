@@ -30,7 +30,7 @@ RUN git clone https://github.com/sass/sassc && \
 RUN cd / && rm -rf /sassc
 
 # yarn
-RUN cp /usr/local/bin/yarn /bin/yarn \
+RUN cp /usr/local/bin/yarn /bin \
     chmod 0777 /bin/yarn
 
 ################## BEGIN NPM INSTALLATION ######################
