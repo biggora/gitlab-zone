@@ -35,13 +35,18 @@ RUN cp /usr/local/bin/yarn /bin \
 
 ################## BEGIN NPM INSTALLATION ######################
 
-RUN npm install -g node-gyp bower gulp grunt-cli node-sass
+RUN yarn install -g node-gyp bower gulp grunt-cli node-sass
 
 ##################### INSTALLATION END #####################
+
+# create app directory
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+# volumes
+VOLUME ["/usr/src/app"]
 
 # Expose the default port
 EXPOSE 3000 22
 
 CMD ["/bin/bash"]
-
-WORKDIR /opt/
