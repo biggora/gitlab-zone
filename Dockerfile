@@ -16,6 +16,11 @@ ENV SASSC_VERSION=3.4.3
 ENV NPM_CONFIG_LOGLEVEL info
 ENV NODE_VERSION 4.8.4
 
+# system update
+RUN apk update && \
+    apk upgrade
+
+# install node
 RUN addgroup -g 1000 node \
     && adduser -u 1000 -G node -s /bin/sh -D node \
     && apk add --no-cache \
@@ -59,24 +64,26 @@ RUN addgroup -g 1000 node \
     && rm -Rf "node-v$NODE_VERSION" \
     && rm "node-v$NODE_VERSION.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt
 
+RUN apk add --no-cache yarn openssh \
+    bash git wget zip imagemagick
+
 # Update the repository sources list
 RUN apk update && apk upgrade && \
-    apk add --no-cache yarn openssh build-base libstdc++ \
-    bash git curl wget zip imagemagick g++ && \
-    rm -rf /var/cache/apk/*
-
-RUN git clone https://github.com/sass/sassc && \
+    apk add --no-cache --virtual .build-deps \
+    build-base \
+    libstdc++ \
+    g++ \
+    curl && \
+    git clone https://github.com/sass/sassc && \
     cd sassc && \
     git clone https://github.com/sass/libsass && \
     SASS_LIBSASS_PATH=/sassc/libsass make && \
-    mv bin/sassc /usr/bin/sass
+    mv bin/sassc /usr/bin/sass && \
+    apk del .build-deps
 
 # cleanup
-RUN cd / && rm -rf /sassc
-
-# yarn
-# RUN ln -s /usr/local/bin/yarn /bin/yarn \
-#    chmod 0777 /bin/yarn
+RUN cd / && rm -rf /sassc && \
+    rm -rf /var/cache/apk/*
 
 ################## BEGIN NPM INSTALLATION ######################
 
