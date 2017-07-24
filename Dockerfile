@@ -118,6 +118,6 @@ WORKDIR /usr/src/app
 VOLUME ["/usr/src/app"]
 
 # Expose the default port
-EXPOSE 3000 22
+# EXPOSE 3000 22
 
-CMD ["/bin/bash"]
+# CMD ["/bin/bash"]
