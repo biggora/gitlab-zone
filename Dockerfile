@@ -1,7 +1,7 @@
 ############################################################
 # Dockerfile to build container for Tests
-# Based on Alpine 3.4
-# include GIT NODEJS OPENSSH
+# Based on Alpine 3.6
+# include GIT NODEJS YARN OPENSSH
 ############################################################
 
 # Set the base image to Ubuntu
@@ -79,8 +79,8 @@ RUN apk add --no-cache --virtual .build-deps-yarn curl gnupg tar \
   && gpg --batch --verify yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz \
   && mkdir -p /opt/yarn \
   && tar -xzf yarn-v$YARN_VERSION.tar.gz -C /opt/yarn --strip-components=1 \
-  && ln -s /opt/yarn/bin/yarn /usr/bin/yarn \
-  && ln -s /opt/yarn/bin/yarn /usr/bin/yarnpkg \
+  && ln -s /opt/yarn/bin/yarn /bin/yarn \
+  && ln -s /opt/yarn/bin/yarn /bin/yarnpkg \
   && rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz \
   && apk del .build-deps-yarn
 
