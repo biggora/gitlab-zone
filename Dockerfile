@@ -15,6 +15,7 @@ ENV LIBSASS_VERSION=3.4.3
 ENV SASSC_VERSION=3.4.3
 ENV NPM_CONFIG_LOGLEVEL info
 ENV NODE_VERSION 4.8.4
+ENV YARN_VERSION 0.24.4
 
 # system update
 RUN apk update && \
@@ -64,12 +65,30 @@ RUN addgroup -g 1000 node \
     && rm -Rf "node-v$NODE_VERSION" \
     && rm "node-v$NODE_VERSION.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt
 
-RUN apk add --no-cache yarn openssh \
-    bash git wget zip imagemagick
+# yarn install
+RUN apk add --no-cache --virtual .build-deps-yarn curl gnupg tar \
+  && for key in \
+    6A010C5166006599AA17F08146C2130DFD2497F5 \
+  ; do \
+    gpg --keyserver pgp.mit.edu --recv-keys "$key" || \
+    gpg --keyserver keyserver.pgp.com --recv-keys "$key" || \
+    gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key" ; \
+  done \
+  && curl -fSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz" \
+  && curl -fSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz.asc" \
+  && gpg --batch --verify yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz \
+  && mkdir -p /opt/yarn \
+  && tar -xzf yarn-v$YARN_VERSION.tar.gz -C /opt/yarn --strip-components=1 \
+  && ln -s /opt/yarn/bin/yarn /usr/bin/yarn \
+  && ln -s /opt/yarn/bin/yarn /usr/bin/yarnpkg \
+  && rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz \
+  && apk del .build-deps-yarn
+
+RUN apk add --no-cache openssh bash git wget zip imagemagick
 
 # Update the repository sources list
 RUN apk update && apk upgrade && \
-    apk add --no-cache --virtual .build-deps \
+    apk add --no-cache --virtual .build-deps-sass \
     build-base \
     libstdc++ \
     g++ \
@@ -79,7 +98,7 @@ RUN apk update && apk upgrade && \
     git clone https://github.com/sass/libsass && \
     SASS_LIBSASS_PATH=/sassc/libsass make && \
     mv bin/sassc /usr/bin/sass && \
-    apk del .build-deps
+    apk del .build-deps-sass
 
 # cleanup
 RUN cd / && rm -rf /sassc && \
