@@ -75,12 +75,12 @@ RUN git clone https://github.com/sass/sassc && \
 RUN cd / && rm -rf /sassc
 
 # yarn
-RUN ln -s /usr/local/bin/yarn /bin/yarn \
-    chmod 0777 /bin/yarn
+# RUN ln -s /usr/local/bin/yarn /bin/yarn \
+#    chmod 0777 /bin/yarn
 
 ################## BEGIN NPM INSTALLATION ######################
 
-RUN yarn install -g node-gyp bower gulp grunt-cli node-sass
+RUN yarn global add node-gyp bower gulp grunt-cli node-sass
 
 ##################### INSTALLATION END #####################
 
