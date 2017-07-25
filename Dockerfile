@@ -30,9 +30,10 @@ RUN cd / && rm -rf /sassc && \
     rm -rf /var/cache/apk/*
 
 # yarn
-RUN cp /usr/local/bin/yarn /bin \
+RUN ln -s /opt/yarn/bin/yarn /bin/yarn && \
+    ln -s /opt/yarn/bin/yarn /bin/yarnpkg && \
     chmod 0777 /bin/yarn
-
+ 
 ################## BEGIN NPM INSTALLATION ######################
 
 RUN yarn global add node-gyp bower gulp grunt-cli node-sass
