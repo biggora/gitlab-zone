@@ -1,7 +1,7 @@
 ############################################################
 # Dockerfile to build container for Tests
 # Based on Alpine 3.6
-# include GIT NODEJS YARN OPENSSH
+# include GIT NODEJS YARN
 ############################################################
 
 # Set the base image to Ubuntu
@@ -20,7 +20,7 @@ ENV YARN_VERSION 0.24.4
 # system update
 RUN apk update && \
     apk upgrade && \
-    apk add --no-cache openssh bash git wget zip imagemagick
+    apk add --no-cache bash git wget zip imagemagick python
 
 # install node
 RUN addgroup -g 1000 node \
@@ -36,7 +36,6 @@ RUN addgroup -g 1000 node \
         libgcc \
         linux-headers \
         make \
-        python \
   # gpg keys listed at https://github.com/nodejs/node#release-team
   && for key in \
     9554F04D7259F04124DE6B476D5A82AC7E37093B \
